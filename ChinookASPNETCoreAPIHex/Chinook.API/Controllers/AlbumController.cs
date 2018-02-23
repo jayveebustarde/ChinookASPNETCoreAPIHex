@@ -80,7 +80,7 @@ namespace Chinook.API.Controllers
                 if (input == null)
                     return BadRequest();
 
-                return Ok(await _chinookSupervisor.AddAlbumAsync(input, ct));
+                return StatusCode(201, await _chinookSupervisor.AddAlbumAsync(input, ct));
             }
             catch (Exception ex)
             {
@@ -89,7 +89,7 @@ namespace Chinook.API.Controllers
         }
 
         [HttpPut("{id}")]
-        [Produces(typeof(void))]
+        [Produces(typeof(AlbumViewModel))]
         public async Task<IActionResult> Put(int id, [FromBody]AlbumViewModel input, CancellationToken ct = default(CancellationToken))
         {
             try
@@ -120,6 +120,7 @@ namespace Chinook.API.Controllers
         }
 
         [HttpDelete("{id}")]
+        [Produces(typeof(void))]
         public async Task<ActionResult> DeleteAsync(int id, CancellationToken ct = default(CancellationToken))
         {
             try

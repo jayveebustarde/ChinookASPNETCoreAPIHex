@@ -97,7 +97,8 @@ namespace Chinook.API.Controllers
             {
                 if (input == null)
                     return BadRequest();
-                return Ok(await _chinookSupervisor.AddInvoiceLineAsync(input, ct));
+
+                return StatusCode(201, await _chinookSupervisor.AddInvoiceLineAsync(input, ct));
             }
             catch (Exception ex)
             {
@@ -106,7 +107,7 @@ namespace Chinook.API.Controllers
         }
 
         [HttpPut("{id}")]
-        [Produces(typeof(void))]
+        [Produces(typeof(InvoiceLineViewModel))]
         public async Task<IActionResult> Put(int id, [FromBody]InvoiceLineViewModel input, CancellationToken ct = default(CancellationToken))
         {
             try
@@ -136,6 +137,7 @@ namespace Chinook.API.Controllers
         }
 
         [HttpDelete("{id}")]
+        [Produces(typeof(void))]
         public async Task<ActionResult> Delete(int id, CancellationToken ct = default(CancellationToken))
         {
             try

@@ -96,7 +96,8 @@ namespace Chinook.API.Controllers
             {
                 if (input == null)
                     return BadRequest();
-                return Ok(await _chinookSupervisor.AddEmployeeAsync(input, ct));
+
+                return StatusCode(201, await _chinookSupervisor.AddEmployeeAsync(input, ct));
             }
             catch (Exception ex)
             {
@@ -105,7 +106,7 @@ namespace Chinook.API.Controllers
         }
 
         [HttpPut("{id}")]
-        [Produces(typeof(void))]
+        [Produces(typeof(EmployeeViewModel))]
         public async Task<IActionResult> Put(int id, [FromBody]EmployeeViewModel input, CancellationToken ct = default(CancellationToken))
         {
             try
@@ -135,6 +136,7 @@ namespace Chinook.API.Controllers
         }
 
         [HttpDelete("{id}")]
+        [Produces(typeof(void))]
         public async Task<ActionResult> Delete(int id, CancellationToken ct = default(CancellationToken))
         {
             try
