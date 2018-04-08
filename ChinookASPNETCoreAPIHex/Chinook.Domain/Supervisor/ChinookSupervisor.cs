@@ -32,7 +32,8 @@ namespace Chinook.Domain.Supervisor
             IInvoiceRepository invoiceRepository,
             IMediaTypeRepository mediaTypeRepository,
             IPlaylistRepository playlistRepository,
-            ITrackRepository trackRepository)
+            ITrackRepository trackRepository
+            )
         {
             _albumRepository = albumRepository;
             _artistRepository = artistRepository;
