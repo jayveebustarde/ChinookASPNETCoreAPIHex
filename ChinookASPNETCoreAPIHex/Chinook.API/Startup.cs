@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using Chinook.API.Mapping;
 using Chinook.API.Configurations;
 using Swashbuckle.AspNetCore.Swagger;
 
@@ -31,8 +30,7 @@ namespace Chinook.API
         {
             services.AddMvc();
 
-            services.AddAutoMapper()
-                .ConfigureRepositories()
+            services.ConfigureRepositories()
                 .ConfigureSupervisor()
                 .AddMiddleware()
                 .AddCorsConfiguration()
