@@ -80,7 +80,7 @@ namespace Chinook.Data.Repositories
 
         public async Task<Playlist> AddAsync(Playlist newPlaylist, CancellationToken ct = default(CancellationToken))
         {
-            var playlist = new DataModels.Playlist {Name = newPlaylist.Name};
+            var playlist = new Playlist {Name = newPlaylist.Name};
 
             _context.Playlist.Add(playlist);
             await _context.SaveChangesAsync(ct);

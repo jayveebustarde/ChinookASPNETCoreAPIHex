@@ -1,4 +1,4 @@
-﻿using Chinook.Data.DataModels;
+﻿using Chinook.Domain.Entities;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Chinook.Data.Configurations

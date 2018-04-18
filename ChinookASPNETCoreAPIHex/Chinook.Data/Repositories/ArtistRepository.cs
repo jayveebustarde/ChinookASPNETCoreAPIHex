@@ -57,7 +57,7 @@ namespace Chinook.Data.Repositories
 
         public async Task<Artist> AddAsync(Artist newArtist, CancellationToken ct = default(CancellationToken))
         {
-            var artist = new DataModels.Artist {Name = newArtist.Name};
+            var artist = new Artist {Name = newArtist.Name};
 
             _context.Artist.Add(artist);
             await _context.SaveChangesAsync(ct);

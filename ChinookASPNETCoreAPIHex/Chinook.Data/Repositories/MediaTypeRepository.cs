@@ -56,7 +56,7 @@ namespace Chinook.Data.Repositories
 
         public async Task<MediaType> AddAsync(MediaType newMediaType, CancellationToken ct = default(CancellationToken))
         {
-            var mediaType = new DataModels.MediaType {Name = newMediaType.Name};
+            var mediaType = new MediaType {Name = newMediaType.Name};
 
             _context.MediaType.Add(mediaType);
             await _context.SaveChangesAsync(ct);

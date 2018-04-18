@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Chinook.Data.Configurations;
-using Chinook.Data.DataModels;
+using Chinook.Domain.Entities;
 
 namespace Chinook.Data
 {
