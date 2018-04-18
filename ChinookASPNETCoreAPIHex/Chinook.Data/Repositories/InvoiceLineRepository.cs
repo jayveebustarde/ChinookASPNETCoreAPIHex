@@ -62,7 +62,7 @@ namespace Chinook.Data.Repositories
 
         public async Task<InvoiceLine> AddAsync(InvoiceLine newInvoiceLine, CancellationToken ct = default(CancellationToken))
         {
-            var invoiceLine = new DataModels.InvoiceLine
+            var invoiceLine = new InvoiceLine
             {
                 InvoiceId = newInvoiceLine.InvoiceId,
                 TrackId = newInvoiceLine.TrackId,

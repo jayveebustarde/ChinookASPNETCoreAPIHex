@@ -70,7 +70,7 @@ namespace Chinook.Data.Repositories
 
         public async Task<Track> AddAsync(Track newTrack, CancellationToken ct = default(CancellationToken))
         {
-            var track = new DataModels.Track
+            var track = new Track
             {
                 Name = newTrack.Name,
                 AlbumId = newTrack.AlbumId,

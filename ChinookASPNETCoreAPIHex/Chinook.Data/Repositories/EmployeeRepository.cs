@@ -82,7 +82,7 @@ namespace Chinook.Data.Repositories
 
         public async Task<Employee> AddAsync(Employee newEmployee, CancellationToken ct = default(CancellationToken))
         {
-            var employee = new DataModels.Employee
+            var employee = new Employee
             {
                 Title = newEmployee.Title,
                 LastName = newEmployee.LastName,

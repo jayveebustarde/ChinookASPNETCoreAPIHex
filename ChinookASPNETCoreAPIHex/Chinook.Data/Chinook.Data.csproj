@@ -8,4 +8,13 @@
   <ItemGroup>
     <ProjectReference Include="..\Chinook.Domain\Chinook.Domain.csproj" />
   </ItemGroup>
+  <ItemGroup>
+    <Compile Remove="DataModels\**" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Remove="DataModels\**" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Remove="DataModels\**" />
+  </ItemGroup>
 </Project>

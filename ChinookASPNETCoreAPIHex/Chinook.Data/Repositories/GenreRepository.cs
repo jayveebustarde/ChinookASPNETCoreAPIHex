@@ -56,7 +56,7 @@ namespace Chinook.Data.Repositories
 
         public async Task<Genre> AddAsync(Genre newGenre, CancellationToken ct = default(CancellationToken))
         {
-            var genre = new DataModels.Genre {Name = newGenre.Name};
+            var genre = new Genre {Name = newGenre.Name};
 
             _context.Genre.Add(genre);
             await _context.SaveChangesAsync(ct);

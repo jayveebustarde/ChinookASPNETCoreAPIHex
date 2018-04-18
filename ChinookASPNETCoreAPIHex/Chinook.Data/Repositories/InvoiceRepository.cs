@@ -79,7 +79,7 @@ namespace Chinook.Data.Repositories
 
         public async Task<Invoice> AddAsync(Invoice newInvoice, CancellationToken ct = default(CancellationToken))
         {
-            var invoice = new DataModels.Invoice
+            var invoice = new Invoice
             {
                 CustomerId = newInvoice.CustomerId,
                 InvoiceDate = newInvoice.InvoiceDate,

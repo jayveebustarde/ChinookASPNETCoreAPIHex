@@ -77,7 +77,7 @@ namespace Chinook.Data.Repositories
 
         public async Task<PlaylistTrack> AddAsync(PlaylistTrack newPlaylistTrack, CancellationToken ct = default(CancellationToken))
         {
-            var playlist = new DataModels.PlaylistTrack
+            var playlist = new PlaylistTrack
             {
                 PlaylistId = newPlaylistTrack.PlaylistId,
                 TrackId = newPlaylistTrack.TrackId

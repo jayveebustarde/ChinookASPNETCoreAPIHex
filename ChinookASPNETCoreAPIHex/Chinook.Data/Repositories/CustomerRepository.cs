@@ -78,7 +78,7 @@ namespace Chinook.Data.Repositories
 
         public async Task<Customer> AddAsync(Customer newCustomer, CancellationToken ct = default(CancellationToken))
         {
-            var customer = new DataModels.Customer
+            var customer = new Customer
             {
                 FirstName = newCustomer.FirstName,
                 LastName = newCustomer.LastName,
