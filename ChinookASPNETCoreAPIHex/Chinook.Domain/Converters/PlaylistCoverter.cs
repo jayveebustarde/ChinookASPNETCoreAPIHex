@@ -5,7 +5,7 @@ using Chinook.Domain.ViewModels;
 
 namespace Chinook.Domain.Converters
 {
-    public class PlaylistCoverter
+    public static class PlaylistCoverter
     {
         public static PlaylistViewModel Convert(Playlist playlist)
         {

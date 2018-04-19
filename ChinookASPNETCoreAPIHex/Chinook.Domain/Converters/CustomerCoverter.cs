@@ -5,7 +5,7 @@ using Chinook.Domain.ViewModels;
 
 namespace Chinook.Domain.Converters
 {
-    public class CustomerCoverter
+    public static class CustomerCoverter
     {
         public static CustomerViewModel Convert(Customer customer)
         {
