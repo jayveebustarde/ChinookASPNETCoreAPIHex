@@ -5,7 +5,7 @@ using Chinook.Domain.ViewModels;
 
 namespace Chinook.Domain.Converters
 {
-    public class InvoiceCoverter
+    public static class InvoiceCoverter
     {
         public static InvoiceViewModel Convert(Invoice invoice)
         {

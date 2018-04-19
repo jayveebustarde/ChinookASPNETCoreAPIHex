@@ -5,7 +5,7 @@ using Chinook.Domain.ViewModels;
 
 namespace Chinook.Domain.Converters
 {
-    public class ArtistCoverter
+    public static class ArtistCoverter
     {
         public static ArtistViewModel Convert(Artist artist)
         {

@@ -5,7 +5,7 @@ using Chinook.Domain.ViewModels;
 
 namespace Chinook.Domain.Converters
 {
-    public class TrackCoverter
+    public static class TrackCoverter
     {
         public static TrackViewModel Convert(Track track)
         {

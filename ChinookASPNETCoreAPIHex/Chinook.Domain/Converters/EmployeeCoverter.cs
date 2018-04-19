@@ -5,7 +5,7 @@ using Chinook.Domain.ViewModels;
 
 namespace Chinook.Domain.Converters
 {
-    public class EmployeeCoverter
+    public static class EmployeeCoverter
     {
         public static EmployeeViewModel Convert(Employee employee)
         {

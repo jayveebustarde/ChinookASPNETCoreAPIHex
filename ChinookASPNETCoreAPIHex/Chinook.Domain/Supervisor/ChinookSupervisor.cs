@@ -236,8 +236,8 @@ namespace Chinook.Domain.Supervisor
             {
                 employee.Customers = await GetCustomerBySupportRepIdAsync(employee.EmployeeId, ct);
                 employee.DirectReports = await GetEmployeeDirectReportsAsync(employee.EmployeeId, ct);
-                employee.Manager = (employee.ReportsTo.HasValue) ? await GetEmployeeReportsToAsync(employee.ReportsTo.GetValueOrDefault(), ct) : null;
-                employee.ReportsToName = (employee.ReportsTo.HasValue) ? $"{employee.Manager.LastName}, {employee.Manager.FirstName}" : String.Empty;
+                employee.Manager = employee.ReportsTo.HasValue ? await GetEmployeeReportsToAsync(employee.ReportsTo.GetValueOrDefault(), ct) : null;
+                employee.ReportsToName = employee.ReportsTo.HasValue ? $"{employee.Manager.LastName}, {employee.Manager.FirstName}" : string.Empty;
             }
             return employees.ToList();
         }
@@ -248,8 +248,8 @@ namespace Chinook.Domain.Supervisor
             var employeeViewModel = EmployeeCoverter.Convert(await _employeeRepository.GetByIdAsync(id, ct));
             employeeViewModel.Customers = await GetCustomerBySupportRepIdAsync(employeeViewModel.EmployeeId, ct);
             employeeViewModel.DirectReports = await GetEmployeeDirectReportsAsync(employeeViewModel.EmployeeId, ct);
-            employeeViewModel.Manager = (employeeViewModel.ReportsTo.HasValue) ? await GetEmployeeReportsToAsync(employeeViewModel.ReportsTo.GetValueOrDefault(), ct) : null;
-            employeeViewModel.ReportsToName = (employeeViewModel.ReportsTo.HasValue) ? $"{employeeViewModel.Manager.LastName}, {employeeViewModel.Manager.FirstName}" : String.Empty;
+            employeeViewModel.Manager = employeeViewModel.ReportsTo.HasValue ? await GetEmployeeReportsToAsync(employeeViewModel.ReportsTo.GetValueOrDefault(), ct) : null;
+            employeeViewModel.ReportsToName = employeeViewModel.ReportsTo.HasValue ? $"{employeeViewModel.Manager.LastName}, {employeeViewModel.Manager.FirstName}" : string.Empty;
             return employeeViewModel;
         }
 

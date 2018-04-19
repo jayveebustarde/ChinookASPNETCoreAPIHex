@@ -5,7 +5,7 @@ using Chinook.Domain.ViewModels;
 
 namespace Chinook.Domain.Converters
 {
-    public class AlbumCoverter
+    public static class AlbumCoverter
     {
         public static AlbumViewModel Convert(Album album)
         {
