@@ -5,7 +5,7 @@ using Chinook.Domain.ViewModels;
 
 namespace Chinook.Domain.Converters
 {
-    public class MediaTypeCoverter
+    public static class MediaTypeCoverter
     {
         public static MediaTypeViewModel Convert(MediaType mediaType)
         {

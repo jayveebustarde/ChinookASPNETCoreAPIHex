@@ -5,7 +5,7 @@ using Chinook.Domain.ViewModels;
 
 namespace Chinook.Domain.Converters
 {
-    public class GenreCoverter
+    public static class GenreCoverter
     {
         public static GenreViewModel Convert(Genre genre)
         {
