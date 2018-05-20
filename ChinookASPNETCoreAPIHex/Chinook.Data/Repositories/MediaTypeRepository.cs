@@ -1,5 +1,4 @@
-﻿using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using System.Threading;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
@@ -29,38 +28,18 @@ namespace Chinook.Data.Repositories
 
         public async Task<List<MediaType>> GetAllAsync(CancellationToken ct = default(CancellationToken))
         {
-            IList<MediaType> list = new List<MediaType>();
-            var mediaTypes = await _context.MediaType.ToListAsync(ct);
-            foreach (var i in mediaTypes)
-            {
-                var mediaType = new MediaType
-                {
-                    MediaTypeId = i.MediaTypeId,
-                    Name = i.Name
-                };
-                list.Add(mediaType);
-            }
-            return list.ToList();
+            return await _context.MediaType.ToListAsync(ct);
         }
 
         public async Task<MediaType> GetByIdAsync(int id, CancellationToken ct = default(CancellationToken))
         {
-            var old = await _context.MediaType.FindAsync(id);
-            var mediaType = new MediaType
-            {
-                MediaTypeId = old.MediaTypeId,
-                Name = old.Name
-            };
-            return mediaType;
+            return await _context.MediaType.FindAsync(id);
         }
 
         public async Task<MediaType> AddAsync(MediaType newMediaType, CancellationToken ct = default(CancellationToken))
         {
-            var mediaType = new MediaType {Name = newMediaType.Name};
-
-            _context.MediaType.Add(mediaType);
+            _context.MediaType.Add(newMediaType);
             await _context.SaveChangesAsync(ct);
-            newMediaType.MediaTypeId = mediaType.MediaTypeId;
             return newMediaType;
         }
 
@@ -68,11 +47,7 @@ namespace Chinook.Data.Repositories
         {
             if (!await MediaTypeExists(mediaType.MediaTypeId, ct))
                 return false;
-            var changing = await _context.MediaType.FindAsync(mediaType.MediaTypeId);
-            _context.MediaType.Update(changing);
-            changing.MediaTypeId = mediaType.MediaTypeId;
-            changing.Name = mediaType.Name;
-
+            _context.MediaType.Update(mediaType);
             await _context.SaveChangesAsync(ct);
             return true;
         }

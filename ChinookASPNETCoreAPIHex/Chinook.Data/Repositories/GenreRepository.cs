@@ -1,5 +1,4 @@
-﻿using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using System.Threading;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
@@ -29,38 +28,18 @@ namespace Chinook.Data.Repositories
 
         public async Task<List<Genre>> GetAllAsync(CancellationToken ct = default(CancellationToken))
         {
-            IList<Genre> list = new List<Genre>();
-            var genres = await _context.Genre.ToListAsync(ct);
-            foreach (var g in genres)
-            {
-                var genre = new Genre
-                {
-                    GenreId = g.GenreId,
-                    Name = g.Name
-                };
-                list.Add(genre);
-            }
-            return list.ToList();
+            return await _context.Genre.ToListAsync(ct);
         }
 
         public async Task<Genre> GetByIdAsync(int id, CancellationToken ct = default(CancellationToken))
         {
-            var old = await _context.Genre.FindAsync(id);
-            var genre = new Genre
-            {
-                GenreId = old.GenreId,
-                Name = old.Name
-            };
-            return genre;
+            return await _context.Genre.FindAsync(id);
         }
 
         public async Task<Genre> AddAsync(Genre newGenre, CancellationToken ct = default(CancellationToken))
         {
-            var genre = new Genre {Name = newGenre.Name};
-
-            _context.Genre.Add(genre);
+            _context.Genre.Add(newGenre);
             await _context.SaveChangesAsync(ct);
-            newGenre.GenreId = genre.GenreId;
             return newGenre;
         }
 
@@ -68,11 +47,7 @@ namespace Chinook.Data.Repositories
         {
             if (!await GenreExists(genre.GenreId, ct))
                 return false;
-            var changing = await _context.Genre.FindAsync(genre.GenreId);
-            _context.Genre.Update(changing);
-            changing.GenreId = genre.GenreId;
-            changing.Name = genre.Name;
-
+            _context.Genre.Update(genre);
             await _context.SaveChangesAsync(ct);
             return true;
         }
