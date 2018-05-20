@@ -8,7 +8,7 @@ using Chinook.Domain.Repositories;
 
 namespace Chinook.Data.Repositories
 {
-    
+
 
     /// <summary>
     /// The invoice repository.
@@ -37,64 +37,18 @@ namespace Chinook.Data.Repositories
 
         public async Task<List<Invoice>> GetAllAsync(CancellationToken ct = default(CancellationToken))
         {
-            IList<Invoice> list = new List<Invoice>();
-            var invoices = await _context.Invoice.ToListAsync(ct);
-            foreach (var i in invoices)
-            {
-                var invoice = new Invoice
-                {
-                    InvoiceId = i.InvoiceId,
-                    CustomerId = i.CustomerId,
-                    InvoiceDate = i.InvoiceDate,
-                    BillingAddress = i.BillingAddress,
-                    BillingCity = i.BillingCity,
-                    BillingState = i.BillingState,
-                    BillingCountry = i.BillingCountry,
-                    BillingPostalCode = i.BillingPostalCode,
-                    Total = i.Total
-                };
-                list.Add(invoice);
-            }
-
-            return list.ToList();
+            return await _context.Invoice.ToListAsync(ct);
         }
 
         public async Task<Invoice> GetByIdAsync(int id, CancellationToken ct = default(CancellationToken))
         {
-            var old = await _context.Invoice.FindAsync(id);
-            var invoice = new Invoice
-            {
-                InvoiceId = old.InvoiceId,
-                CustomerId = old.CustomerId,
-                InvoiceDate = old.InvoiceDate,
-                BillingAddress = old.BillingAddress,
-                BillingCity = old.BillingCity,
-                BillingState = old.BillingState,
-                BillingCountry = old.BillingCountry,
-                BillingPostalCode = old.BillingPostalCode,
-                Total = old.Total
-            };
-            return invoice;
+            return await _context.Invoice.FindAsync(id);
         }
 
         public async Task<Invoice> AddAsync(Invoice newInvoice, CancellationToken ct = default(CancellationToken))
         {
-            var invoice = new Invoice
-            {
-                CustomerId = newInvoice.CustomerId,
-                InvoiceDate = newInvoice.InvoiceDate,
-                BillingAddress = newInvoice.BillingAddress,
-                BillingCity = newInvoice.BillingCity,
-                BillingState = newInvoice.BillingState,
-                BillingCountry = newInvoice.BillingCountry,
-                BillingPostalCode = newInvoice.BillingPostalCode,
-                Total = newInvoice.Total
-            };
-
-
-            _context.Invoice.Add(invoice);
+            _context.Invoice.Add(newInvoice);
             await _context.SaveChangesAsync(ct);
-            newInvoice.InvoiceId = invoice.InvoiceId;
             return newInvoice;
         }
 
@@ -102,19 +56,7 @@ namespace Chinook.Data.Repositories
         {
             if (!await InvoiceExists(invoice.InvoiceId, ct))
                 return false;
-            var changing = await _context.Invoice.FindAsync(invoice.InvoiceId);
-            _context.Invoice.Update(changing);
-
-            changing.InvoiceId = invoice.InvoiceId;
-            changing.CustomerId = invoice.CustomerId;
-            changing.InvoiceDate = invoice.InvoiceDate;
-            changing.BillingAddress = invoice.BillingAddress;
-            changing.BillingCity = invoice.BillingCity;
-            changing.BillingState = invoice.BillingState;
-            changing.BillingCountry = invoice.BillingCountry;
-            changing.BillingPostalCode = invoice.BillingPostalCode;
-            changing.Total = invoice.Total;
-
+            _context.Invoice.Update(invoice);
             await _context.SaveChangesAsync(ct);
             return true;
         }
@@ -131,25 +73,7 @@ namespace Chinook.Data.Repositories
 
         public async Task<List<Invoice>> GetByCustomerIdAsync(int id, CancellationToken ct = default(CancellationToken))
         {
-            IList<Invoice> list = new List<Invoice>();
-            var current = await _context.Invoice.Where(a => a.InvoiceId == id).ToListAsync(ct);
-            foreach (var i in current)
-            {
-                var newisd = new Invoice
-                {
-                    InvoiceId = i.InvoiceId,
-                    CustomerId = i.CustomerId,
-                    InvoiceDate = i.InvoiceDate,
-                    BillingAddress = i.BillingAddress,
-                    BillingCity = i.BillingCity,
-                    BillingState = i.BillingState,
-                    BillingCountry = i.BillingCountry,
-                    BillingPostalCode = i.BillingPostalCode,
-                    Total = i.Total
-                };
-                list.Add(newisd);
-            }
-            return list.ToList();
+            return await _context.Invoice.Where(a => a.InvoiceId == id).ToListAsync(ct);
         }
     }
 }

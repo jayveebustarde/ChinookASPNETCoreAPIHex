@@ -1,5 +1,4 @@
-﻿using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using System.Threading;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
@@ -29,39 +28,18 @@ namespace Chinook.Data.Repositories
 
         public async Task<List<Artist>> GetAllAsync(CancellationToken ct = default(CancellationToken))
         {
-            IList<Artist> list = new List<Artist>();
-            var artists = await _context.Artist.ToListAsync(ct);
-
-            foreach (var i in artists)
-            {
-                var artist = new Artist
-                {
-                    ArtistId = i.ArtistId,
-                    Name = i.Name
-                };
-                list.Add(artist);
-            }
-            return list.ToList();
+            return await _context.Artist.ToListAsync(ct);
         }
 
         public async Task<Artist> GetByIdAsync(int id, CancellationToken ct = default(CancellationToken))
         {
-            var old = await _context.Artist.FindAsync(id);
-            var artist = new Artist
-            {
-                ArtistId = old.ArtistId,
-                Name = old.Name
-            };
-            return artist;
+            return await _context.Artist.FindAsync(id);
         }
 
         public async Task<Artist> AddAsync(Artist newArtist, CancellationToken ct = default(CancellationToken))
         {
-            var artist = new Artist {Name = newArtist.Name};
-
-            _context.Artist.Add(artist);
+            _context.Artist.Add(newArtist);
             await _context.SaveChangesAsync(ct);
-            newArtist.ArtistId = artist.ArtistId;
             return newArtist;
         }
 
@@ -69,11 +47,7 @@ namespace Chinook.Data.Repositories
         {
             if (!await ArtistExists(artist.ArtistId, ct))
                 return false;
-            var changing = await _context.Artist.FindAsync(artist.ArtistId);
-            _context.Artist.Update(changing);
-            changing.ArtistId = artist.ArtistId;
-            changing.Name = artist.Name;
-
+            _context.Artist.Update(artist);
             await _context.SaveChangesAsync(ct);
             return true;
         }

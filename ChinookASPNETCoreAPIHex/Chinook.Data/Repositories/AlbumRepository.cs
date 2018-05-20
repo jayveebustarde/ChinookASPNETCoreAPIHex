@@ -29,45 +29,18 @@ namespace Chinook.Data.Repositories
 
         public async Task<List<Album>> GetAllAsync(CancellationToken ct = default(CancellationToken))
         {
-            IList<Album> list = new List<Album>();
-            var albums = await _context.Album.ToListAsync(ct);
-
-            foreach (var i in albums)
-            {
-                var album = new Album
-                {
-                    AlbumId = i.AlbumId,
-                    ArtistId = i.ArtistId,
-                    Title = i.Title
-                };
-                list.Add(album);
-            }
-            return list.ToList();
+            return await _context.Album.ToListAsync(ct);
         }
 
         public async Task<Album> GetByIdAsync(int id, CancellationToken ct = default(CancellationToken))
         {
-            var albums = await _context.Album.FindAsync(id);
-            var album = new Album
-            {
-                AlbumId = albums.AlbumId,
-                ArtistId = albums.ArtistId,
-                Title = albums.Title
-            };
-            return album;
+            return await _context.Album.FindAsync(id);
         }
 
         public async Task<Album> AddAsync(Album newAlbum, CancellationToken ct = default(CancellationToken))
         {
-            var album = new Album
-            {
-                Title = newAlbum.Title,
-                ArtistId = newAlbum.ArtistId
-            };
-
-            _context.Album.Add(album);
+            _context.Album.Add(newAlbum);
             await _context.SaveChangesAsync(ct);
-            newAlbum.AlbumId = album.AlbumId;
             return newAlbum;
         }
 
@@ -75,15 +48,9 @@ namespace Chinook.Data.Repositories
         {
             if (!await AlbumExists(album.AlbumId, ct))
                 return false;
-            var changing = await _context.Album.FindAsync(album.AlbumId);
-            
+            _context.Album.Update(album);
 
-            changing.AlbumId = album.AlbumId;
-            changing.Title = album.Title;
-            changing.ArtistId = album.ArtistId;
-            _context.Album.Update(changing);
-
-            _context.Update(changing);
+            _context.Update(album);
             await _context.SaveChangesAsync(ct);
             return true;
         }
@@ -100,19 +67,7 @@ namespace Chinook.Data.Repositories
 
         public async Task<List<Album>> GetByArtistIdAsync(int id, CancellationToken ct = default(CancellationToken))
         {
-            IList<Album> list = new List<Album>();
-            var current = await _context.Album.Where(a => a.ArtistId == id).ToListAsync(ct);
-            foreach (var i in current)
-            {
-                var newisd = new Album
-                {
-                    Title = i.Title,
-                    ArtistId = i.ArtistId,
-                    AlbumId = i.AlbumId
-                };
-                list.Add(newisd);
-            }
-            return list.ToList();
+            return await _context.Album.Where(a => a.ArtistId == id).ToListAsync(ct);
         }
     }
 }
