@@ -8,28 +8,23 @@ namespace Chinook.API.Configurations
 {
     public static class ServicesConfiguration
     {
-        public static IServiceCollection ConfigureRepositories(this IServiceCollection services)
-        {
-            services.AddScoped<IAlbumRepository, AlbumRepository>();
-            services.AddScoped<IArtistRepository, ArtistRepository>();
-            services.AddScoped<ICustomerRepository, CustomerRepository>();
-            services.AddScoped<IEmployeeRepository, EmployeeRepository>();
-            services.AddScoped<IGenreRepository, GenreRepository>();
-            services.AddScoped<IInvoiceRepository, InvoiceRepository>();
-            services.AddScoped<IInvoiceLineRepository, InvoiceLineRepository>();
-            services.AddScoped<IMediaTypeRepository, MediaTypeRepository>();
-            services.AddScoped<IPlaylistRepository, PlaylistRepository>();
-            services.AddScoped<ITrackRepository, TrackRepository>();
+        public static IServiceCollection ConfigureRepositories(this IServiceCollection services) =>
+            services.AddScoped<IAlbumRepository, AlbumRepository>()
+                .AddScoped<IArtistRepository, ArtistRepository>()
+                .AddScoped<ICustomerRepository, CustomerRepository>()
+                .AddScoped<IEmployeeRepository, EmployeeRepository>()
+                .AddScoped<IGenreRepository, GenreRepository>()
+                .AddScoped<IInvoiceRepository, InvoiceRepository>()
+                .AddScoped<IInvoiceLineRepository, InvoiceLineRepository>()
+                .AddScoped<IMediaTypeRepository, MediaTypeRepository>()
+                .AddScoped<IPlaylistRepository, PlaylistRepository>()
+                .AddScoped<ITrackRepository, TrackRepository>();
 
-            return services;
-        }
+           
 
-        public static IServiceCollection ConfigureSupervisor(this IServiceCollection services)
-        {
+        public static IServiceCollection ConfigureSupervisor(this IServiceCollection services) =>        
             services.AddScoped<IChinookSupervisor, ChinookSupervisor>();
 
-            return services;
-        }
         
         public static IServiceCollection AddMiddleware(this IServiceCollection services)
         {
@@ -37,23 +32,19 @@ namespace Chinook.API.Configurations
             {
                 options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
             });
-
             return services;
         }
 
-        public static IServiceCollection AddCorsConfiguration(this IServiceCollection services)
-        {
-            var corsBuilder = new Microsoft.AspNetCore.Cors.Infrastructure.CorsPolicyBuilder();
-            corsBuilder.AllowAnyHeader();
-            corsBuilder.AllowAnyMethod();
-            corsBuilder.AllowAnyOrigin();
-            corsBuilder.AllowCredentials();
+        public static IServiceCollection AddCorsConfiguration(this IServiceCollection services) =>        
             services.AddCors(options =>
             {
-                options.AddPolicy("AllowAll", corsBuilder.Build());
+                options.AddPolicy("AllowAll", new Microsoft.AspNetCore.Cors.Infrastructure.CorsPolicyBuilder()
+                .AllowAnyHeader()
+                .AllowAnyMethod()
+                .AllowAnyOrigin()
+                .AllowCredentials()
+                .Build());
             });
 
-            return services;
-        }
     }
 }
