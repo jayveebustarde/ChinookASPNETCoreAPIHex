@@ -7,12 +7,11 @@ namespace Chinook.API.Configurations
 {
     public static class ConfigureConnections
     {
-        public static IServiceCollection AddConnectionProvider(this IServiceCollection services, IConfiguration configuration)
-        {
-            var connection = configuration.GetConnectionString("ChinookDb");
-            services.AddDbContext<ChinookContext>(options => options.UseSqlServer(connection));
+        public static IServiceCollection AddConnectionProvider(this IServiceCollection services, IConfiguration configuration) =>   
+            services.AddDbContext<ChinookContext>(options => options
+                .UseSqlServer(configuration
+                    .GetConnectionString("ChinookDb")));
 
-            return services;
-        }
+           
     }
 }
